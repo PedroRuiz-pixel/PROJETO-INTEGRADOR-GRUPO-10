@@ -2,6 +2,11 @@
 GRUPO 10 - SALA 3 
 
 ##Descrição do projeto:
+Projeto desenvolvido para a disciplina de Projeto Integrador I - Engenharia de Software da PUC-Campinas.
+
+O sistema simula um processo de votação digital em ambiente terminal, com foco em organização, segurança dos dados e integração entre Python e MySQL
+
+
 
 ##Integrantes:
 
@@ -16,8 +21,15 @@ GRUPO 10 - SALA 3
 - Bruno Rosa dos Anjos
 
 ##Objetivos:
+-Desenvolver o backend de um sistema de votação digital fictício, utilizando python, mysql e organização do projeto com github.
+
 
 ##Tecnologias utilizadas:
+-Python3
+-MySQL
+-Github
+-Github Project
+
 
 ##Funcionalidades já implementadas:
 - Reposiório github criado
