@@ -1,14 +1,35 @@
 # PROJETO-INTEGRADOR-GRUPO-10
 GRUPO 10 - SALA 3 
 
-Integrantes:
+##Descrição do projeto:
 
-1- Eduardo de Campos Ferreira Filho
+##Integrantes:
 
-2- Pedro Henrique Bassetto Ruiz
+- Eduardo de Campos Ferreira Filho
 
-3- Matheus Augusto Alves
+- Pedro Henrique Bassetto Ruiz
 
-4- Kauan Paixão Benedito
+- Matheus Augusto Alves
 
-5- Bruno Rosa dos Anjos
+- Kauan Paixão Benedito
+
+- Bruno Rosa dos Anjos
+
+##Objetivos:
+
+##Tecnologias utilizadas:
+
+##Funcionalidades já implementadas:
+- Reposiório github criado
+- Read.me inical
+
+##Como executar o sistema:
+
+###Pré requisitos:
+-Pyhton3 instalado
+-MySQL instalado e em execução
+-Biblioteca 'mysql-connector-python' instalada
+
+###Instalação da biblioteca:
+''' bash 
+pip install mysql-connector-python
