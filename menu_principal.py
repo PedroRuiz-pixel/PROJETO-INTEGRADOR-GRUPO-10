@@ -2,7 +2,8 @@
 
 
 
-
+from menu_votacao import menu_votacao
+from menu_gerenciamento import menu_gerenciamento
 
 def menu_principal():
     print("Menu principal")
