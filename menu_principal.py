@@ -34,6 +34,3 @@ def menu_principal():
             print("\nOpção inválida!")                
  
 menu_principal()            
-
-from menu_votacao import menu_votacao
-from menu_gerenciamento import menu_gerenciamento
