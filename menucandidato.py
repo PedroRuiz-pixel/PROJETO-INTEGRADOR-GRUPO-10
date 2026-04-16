@@ -1,4 +1,4 @@
-candidatos = []  # lista para armazenar candidatos
+candidatos = []  
 
 
 def cadastrar_candidato():
@@ -6,7 +6,6 @@ def cadastrar_candidato():
     numero = input("Número do candidato: ")
     partido = input("Partido: ")
 
-    # Verificar duplicidade de número
     for c in candidatos:
         if c["numero"] == numero:
             print("Erro: Já existe candidato com esse número!")
@@ -82,6 +81,4 @@ def menu_candidato():
         else:
             print("Opção inválida!")
 
-
-# Executar menu
 menu_candidato()
