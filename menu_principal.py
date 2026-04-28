@@ -49,6 +49,11 @@ def cadastrar_eleitor():
     cursor = conexao.cursor()
 
     try:
+        cursor.execute("SELECT * FROM eleitores WHERE cpf = %s", (cpf,))
+        if len(cursor.fetchall()) > 0:
+            print("Erro: CPF já cadastrado.")
+            return
+
         sql = "INSERT INTO eleitores VALUES (NULL, %s, %s, %s, %s, %s, %s)"
         valores = (nome, titulo, cpf, mesario, chave_acesso, False)
 
@@ -84,21 +89,12 @@ def listar_eleitores():
                 print("Nome:", eleitor[1])
                 print("Título:", eleitor[2])
                 print("CPF:", eleitor[3])
-
-                if eleitor[4] == 1:
-                    print("Mesário: Sim")
-                else:
-                    print("Mesário: Não")
-
+                print("Mesário:", "Sim" if eleitor[4] == 1 else "Não")
                 print("Chave de Acesso:", eleitor[5])
-
-                if eleitor[6] == 1:
-                    print("Já votou: Sim")
-                else:
-                    print("Já votou: Não")
-
+                print("Já votou:", "Sim" if eleitor[6] == 1 else "Não")
                 print("----------------------")
-                i = i + 1
+
+                i += 1
 
     except Error as erro:
         print("Erro ao listar eleitores:", erro)
@@ -114,39 +110,80 @@ def buscar_eleitor():
     cursor = conexao.cursor()
 
     try:
-        sql = "SELECT * FROM eleitores WHERE CPF = %s"
-        cursor.execute(sql, (cpf,))
+        cursor.execute("SELECT * FROM eleitores WHERE cpf = %s", (cpf,))
         dados = cursor.fetchall()
 
         if len(dados) == 0:
             print("Eleitor não encontrado.")
         else:
-            i = 0
-            while i < len(dados):
-                eleitor = dados[i]
+            eleitor = dados[0]
 
-                print("\nID:", eleitor[0])
-                print("Nome:", eleitor[1])
-                print("Título:", eleitor[2])
-                print("CPF:", eleitor[3])
-
-                if eleitor[4] == 1:
-                    print("Mesário: Sim")
-                else:
-                    print("Mesário: Não")
-
-                print("Chave de Acesso:", eleitor[5])
-
-                if eleitor[6] == 1:
-                    print("Já votou: Sim")
-                else:
-                    print("Já votou: Não")
-
-                print("----------------------")
-                i = i + 1
+            print("\nID:", eleitor[0])
+            print("Nome:", eleitor[1])
+            print("Título:", eleitor[2])
+            print("CPF:", eleitor[3])
+            print("Mesário:", "Sim" if eleitor[4] == 1 else "Não")
+            print("Chave de Acesso:", eleitor[5])
+            print("Já votou:", "Sim" if eleitor[6] == 1 else "Não")
 
     except Error as erro:
         print("Erro ao buscar eleitor:", erro)
+
+    cursor.close()
+    conexao.close()
+
+
+def editar_eleitor():
+    cpf = input("Digite o CPF do eleitor que deseja editar: ")
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    try:
+        cursor.execute("SELECT * FROM eleitores WHERE cpf = %s", (cpf,))
+        dados = cursor.fetchall()
+
+        if len(dados) == 0:
+            print("Eleitor não encontrado.")
+            return
+
+        novo_nome = input("Novo nome: ")
+        novo_titulo = input("Novo título: ")
+
+        cursor.execute(
+            "UPDATE eleitores SET nome=%s, titulo=%s WHERE cpf=%s",
+            (novo_nome, novo_titulo, cpf)
+        )
+        conexao.commit()
+
+        print("Eleitor atualizado com sucesso!")
+
+    except Error as erro:
+        print("Erro ao editar eleitor:", erro)
+
+    cursor.close()
+    conexao.close()
+
+
+def remover_eleitor():
+    cpf = input("Digite o CPF do eleitor que deseja remover: ")
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    try:
+        cursor.execute("SELECT * FROM eleitores WHERE cpf = %s", (cpf,))
+        if len(cursor.fetchall()) == 0:
+            print("Eleitor não encontrado.")
+            return
+
+        cursor.execute("DELETE FROM eleitores WHERE cpf = %s", (cpf,))
+        conexao.commit()
+
+        print("Eleitor removido com sucesso!")
+
+    except Error as erro:
+        print("Erro ao remover eleitor:", erro)
 
     cursor.close()
     conexao.close()
@@ -157,40 +194,34 @@ def menu_eleitor():
 
     while opcao != "0":
         print("\nVocê entrou no modulo de Eleitor!")
-        print("Menu do eleitor")
-        print("=" * 50)
-        print("Gerenciamento de Eleitores")
-        print("=" * 50)
         print("1- Cadastrar eleitor")
-        print("2- Edição de eleitor")
-        print("3- Remoção de eleitor")
-        print("4- Busca de eleitores")
+        print("2- Editar eleitor")
+        print("3- Remover eleitor")
+        print("4- Buscar eleitor")
         print("5- Listar eleitores")
         print("0- Voltar")
-        print("=" * 50)
 
         opcao = input("Digite uma opção: ").strip()
 
         if opcao == "1":
             cadastrar_eleitor()
         elif opcao == "2":
-            print("\nEdição de eleitor ainda não implementada")
+            editar_eleitor()
         elif opcao == "3":
-            print("\nRemoção de eleitor ainda não implementada")
+            remover_eleitor()
         elif opcao == "4":
             buscar_eleitor()
         elif opcao == "5":
             listar_eleitores()
         elif opcao == "0":
-            print("\nVoltando...")
+            print("Voltando...")
         else:
-            print("\nOpção inválida!")
+            print("Opção inválida!")
 
 
 # ================= CANDIDATOS =================
 
 candidatos = []
-
 
 def cadastrar_candidato():
     nome = input("Nome do candidato: ")
@@ -295,6 +326,7 @@ def menu_gerenciamento():
             continuar = 0
         else:
             print("Opção inválida. Tente novamente.")
+
 
 
 # ================= ABERTURA DE VOTAÇÃO =================
