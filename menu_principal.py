@@ -22,15 +22,96 @@ def gerar_chave_acesso(nome):
     return chave
 
 
+def validar_cpf(cpf):
+    if cpf == cpf[0] * 11:
+        print("CPF inválido.")
+        return False
+
+    # 1º
+    soma = 0
+    i = 0
+    while i < 9:
+        soma += int(cpf[i]) * (10 - i)
+        i += 1
+
+    resto = (soma * 10) % 11
+    if resto == 10:
+        resto = 0
+
+    if resto != int(cpf[9]):
+        print("CPF inválido.")
+        return False
+
+    # 2º
+    soma = 0
+    i = 0
+    while i < 10:
+        soma += int(cpf[i]) * (11 - i)
+        i += 1
+
+    resto = (soma * 10) % 11
+    if resto == 10:
+        resto = 0
+
+    if resto != int(cpf[10]):
+        print("CPF inválido.")
+        return False
+
+    return True
+
+
+def validar_titulo(titulo):
+    titulo_limpo = ""
+
+    for c in titulo:
+        if c >= '0' and c <= '9':
+            titulo_limpo = titulo_limpo + c
+
+    titulo = titulo_limpo
+
+    if len(titulo) != 12:
+        print("Título de eleitor deve ter 12 números.")
+        return False
+
+    return True
+
+
 def cadastrar_eleitor():
     nome = input("Nome: ")
     titulo = input("Título de Eleitor: ")
+
+    # ✅ VALIDAÇÃO DO TÍTULO AQUI
+    if not validar_titulo(titulo):
+        return
+
+    titulo_limpo = ""
+    for c in titulo:
+        if c >= '0' and c <= '9':
+            titulo_limpo = titulo_limpo + c
+
+    titulo = titulo_limpo
+
     cpf = input("CPF: ")
-    mesario = input("Mesário(S/N): ").upper()
 
     if nome == "" or titulo == "" or cpf == "":
         print("Todos os campos são obrigatórios.")
         return
+
+    cpf_limpo = ""
+    for c in cpf:
+        if c >= '0' and c <= '9':
+            cpf_limpo = cpf_limpo + c
+
+    cpf = cpf_limpo
+
+    if len(cpf) != 11:
+        print("CPF deve ter 11 números.")
+        return
+
+    if not validar_cpf(cpf):
+        return
+
+    mesario = input("Mesário(S/N): ").upper()
 
     if mesario == "S":
         mesario = True
