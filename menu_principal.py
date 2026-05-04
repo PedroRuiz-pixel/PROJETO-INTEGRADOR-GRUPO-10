@@ -80,7 +80,7 @@ def cadastrar_eleitor():
     nome = input("Nome: ")
     titulo = input("Título de Eleitor: ")
 
-    # ✅ VALIDAÇÃO DO TÍTULO AQUI
+    
     if not validar_titulo(titulo):
         return
 
