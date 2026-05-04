@@ -36,6 +36,7 @@ O sistema simula um processo de votação digital em ambiente terminal, com foco
 - Read.me inical
 
 ##Como executar o sistema:
+py menu_principal.py
 
 ###Pré requisitos:
 -Pyhton3 instalado
