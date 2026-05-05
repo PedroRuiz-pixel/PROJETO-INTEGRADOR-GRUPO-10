@@ -1,3 +1,4 @@
+#registro logs
 from datetime import datetime
 
 
@@ -10,7 +11,7 @@ def registrar_log(mensagem):
 
 
 #--------------------------------------------------------------------------
-
+#mostrar logs
 
 def exibir_logs():
     try:
