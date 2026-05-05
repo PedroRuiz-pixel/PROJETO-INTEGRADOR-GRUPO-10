@@ -1,20 +1,18 @@
 def exibir_logs():
     try:
         with open('logs ocorrencia.txt', 'r', encoding='utf-8') as arquivo:
-        conteudo=arquivo.read()
-        if conteudo_strip():
-            print('logs de ocorrencias')
-            print(conteudo)
-        else:
-            print('Nenhum logs registrado')
-        except FileNotFoundError:
-            print('Arquivo logs Nao encontrado')
-        
+            conteudo = arquivo.read()
+
+            if conteudo.strip():
+                print('\n=== LOGS DE OCORRÊNCIAS ===')
+                print(conteudo)
+            else:
+                print('Nenhum log registrado.')
+
+    except FileNotFoundError:
+        print('Arquivo de logs não encontrado.')
+
+
 def exibir_protocolos():
-    protocolos=buscar_procolos_no_banco()
-    print('Protocolos de Votação')
-    if not protocolos:
-        print('Nenhum Protocolo Encontrado')
-        return
-    for protocolo in sorted(protocolos):
-    print(protocolo)
+    print('\n=== PROTOCOLOS DE VOTAÇÃO ===')
+    print('Funcionalidade ainda não implementada.')
