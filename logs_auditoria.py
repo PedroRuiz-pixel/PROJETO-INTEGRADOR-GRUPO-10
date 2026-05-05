@@ -1,3 +1,26 @@
+from datetime import datetime
+
+
+def registrar_log(mensagem):
+    """
+    Registra uma mensagem no arquivo de logs.
+
+    Args:
+        mensagem (str): Mensagem que será salva no log.
+
+    Returns:
+        None
+    """
+
+    data_hora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    with open("logs ocorrencia.txt", "a", encoding="utf-8") as arquivo:
+        arquivo.write(f"[{data_hora}] {mensagem}\n")
+
+
+#--------------------------------------------------------------------------
+
+
 def exibir_logs():
     try:
         with open('logs ocorrencia.txt', 'r', encoding='utf-8') as arquivo:
